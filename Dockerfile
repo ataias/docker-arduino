@@ -1,7 +1,7 @@
 FROM debian:stretch-slim
 
 # Version of arduino IDE
-ARG VERSION="1.8.5"
+ARG VERSION="1.8.9"
 
 # Version of Arduino IDE to download
 ENV ARDUINO_VERSION=$VERSION
