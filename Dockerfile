@@ -1,4 +1,4 @@
-FROM debian:stretch-slim
+FROM debian:buster-slim
 
 # Version of arduino IDE
 ARG VERSION="1.8.9"
@@ -43,7 +43,11 @@ SHELL ["/bin/bash","-c"]
 WORKDIR ${A_HOME}
 
 # Get updates and install dependencies
-RUN apt-get update && apt-get install wget tar xz-utils git xvfb -y && apt-get clean && rm -rf /var/lib/apt/list/*
+RUN apt-get update && \
+    apt-get install -y wget curl tar xz-utils git xvfb && \
+    apt-get install -y ripgrep fd-find && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/list/*
 
 # Get and install Arduino IDE
 RUN wget -q https://downloads.arduino.cc/arduino-${ARDUINO_VERSION}-linux64.tar.xz -O arduino.tar.xz && \
@@ -66,10 +70,16 @@ RUN chmod +x ${A_TOOLS_DIR}/* && \
 
 # Install additional Arduino boards and libraries
 RUN arduino_add_board_url https://adafruit.github.io/arduino-board-index/package_adafruit_index.json,http://arduino.esp8266.com/stable/package_esp8266com_index.json && \
+    arduino_add_board_url https://dan.drown.org/stm32duino/package_STM32duino_index.json && \
     arduino_install_board arduino:sam && \
     arduino_install_board arduino:samd && \
     arduino_install_board esp8266:esp8266 && \
     arduino_install_board adafruit:avr && \
     arduino_install_board adafruit:samd && \
     arduino --pref "compiler.warning_level=all" --save-prefs 2>&1
+
+RUN arduino_install_board stm32duino:STM32F1 && \
+    arduino --pref "compiler.warning_level=all" --save-prefs 2>&1
+
+RUN echo 'alias fd="fdfind"' >> ~/.bashrc
 
