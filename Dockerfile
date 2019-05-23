@@ -83,8 +83,6 @@ RUN arduino_install_board stm32duino:STM32F1 && \
 
 RUN echo 'alias fd="fdfind"' >> ~/.bashrc
 
-COPY libraries ${ARDUINO_LIBS}
-
 RUN arduino_add_board_url https://dl.espressif.com/dl/package_esp32_index.json && \
     arduino_install_board esp32:esp32 && \
     arduino --pref "compiler.warning_level=all" --save-prefs 2>&1
@@ -96,3 +94,4 @@ RUN apt-get update && \
 		update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 10 && \
 		apt-get clean
 
+COPY libraries ${ARDUINO_LIBS}

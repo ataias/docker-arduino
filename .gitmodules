@@ -1,3 +1,6 @@
 [submodule "libraries/OneWire"]
 	path = libraries/OneWire
 	url = git@github.com:PaulStoffregen/OneWire.git
+[submodule "libraries/UIPEthernet"]
+	path = libraries/UIPEthernet
+	url = git@github.com:UIPEthernet/UIPEthernet.git
