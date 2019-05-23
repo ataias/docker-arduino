@@ -4,3 +4,6 @@
 [submodule "libraries/UIPEthernet"]
 	path = libraries/UIPEthernet
 	url = git@github.com:UIPEthernet/UIPEthernet.git
+[submodule "libraries/Arduino-Temperature-Control-Library"]
+	path = libraries/Arduino-Temperature-Control-Library
+	url = git@github.com:milesburton/Arduino-Temperature-Control-Library.git
